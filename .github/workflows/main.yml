@@ -10,8 +10,9 @@ jobs:
     steps:
       - name: Dispatch E2E Test Suite
         run: |
-          curl -X POST \
+          curl -f -X POST \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
-            https://github.com \
+            https://api.github.com/repos/IonutSavinuC/playwright-enterprise-crm/dispatches \
             -d '{"event_type":"run-e2e-tests"}'
+
