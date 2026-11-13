@@ -28,3 +28,11 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- All HR data and the login session live in browser localStorage via `HrProvider` (src/hooks/use-hr.tsx); there is no backend, because the app is a self-contained test target for Playwright.
+- Domain logic (seed data, validation, search/sort, salary format) stays pure in src/lib/hr.ts with tests in src/lib/hr.test.ts, so rules can be unit tested without the UI.
+- Every interactive element keeps the exact `data-testid` from the original brief; never rename or remove them, because the external E2E suite depends on them.
+- Use native `<input>`/`<select>` elements for form controls so Playwright `fill`/`selectOption` work directly.
+- Only one toast is shown at a time (newest replaces older) so `toast-notification` is always a single element.
