@@ -1,0 +1,17 @@
+name: Trigger E2E Tests on Push
+
+on:
+  push:
+    branches: [ main, staging ]
+
+jobs:
+  trigger-playwright:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch E2E Test Suite
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
+            https://github.com \
+            -d '{"event_type":"run-e2e-tests"}'
